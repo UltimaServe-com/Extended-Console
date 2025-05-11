@@ -1,0 +1,24 @@
+{
+  "name": "@ultimaserve/extended-console",
+  "version": "1.0.0",
+  "description": "A customizable drop-in replacement for the global `console` object",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UltimaServe-com/Extended-Console.git"
+  },
+  "keywords": [
+    "console",
+    "terminal",
+    "custom-console"
+  ],
+  "author": "Elkbee",
+  "license": "MIT",
+  "peerDependency": {
+    "@ultimaserve/emoji-icons": "^1.0.1"
+  }
+}
