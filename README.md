@@ -21,7 +21,7 @@ Once initialized, it seamlessly augments the global `console` object, meaning al
 ## 📦 Installation
 
 ```bash
-npm install extended-console
+npm install https://github.com/UltimaServe-com/Extended-Console.git
 ```
 
 If you plan to use the optional emoji icon pack (optional):
