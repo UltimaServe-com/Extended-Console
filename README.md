@@ -37,7 +37,7 @@ npm install https://github.com/UltimaServe-com/emoji-icons.git
 This is the simplest way to get started. Just import and initialize at very beginning of your app:
 
 ```js
-import ExtendedConsole from 'extended-console';
+import ExtendedConsole from '@ultimaserve/extended-console';
 
 const consoleEx = new ExtendedConsole();
 
@@ -86,7 +86,7 @@ If `useDefaultPrefixes` is `true`, these are the defaults per method:
 This prefixes can be overridden using the `prefix` option
 
 ```js
-import ExtendedConsole from 'extended-console';
+import ExtendedConsole from '@ultimaserve/extended-console';
 
 const consoleEx = new ExtendedConsole({
     prefix: {
@@ -196,7 +196,7 @@ The function you provide will receive the arguments passed to your custom consol
 You can also assign a custom prefix to your new method via the `prefix` configuration option.
 
 ```js
-import ExtendedConsole from 'extended-console';
+import ExtendedConsole from '@ultimaserve/extended-console';
 
 const consoleEx = new ExtendedConsole({
 prefix: {
@@ -265,7 +265,7 @@ While `Extended-Console` is designed to be configured directly, you might want t
 
 ```js
 // MyProjectLogger.js
-import ExtendedConsole from 'extended-console'; // or your published package name
+import ExtendedConsole from '@ultimaserve/extended-console'; // or your published package name
 
 class MyProjectLogger extends ExtendedConsole {
     constructor(configOverrides = {}) {
