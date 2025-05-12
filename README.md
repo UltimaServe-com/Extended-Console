@@ -358,7 +358,7 @@ class MyProjectLogger extends ExtendedConsole {
 }
 
 // Initial directly
-new ExtendedLogger().init();
+await new ExtendedLogger().init();
 ```
 
 so we just need to import `MyProjectLogger.js` to use it in our app:
