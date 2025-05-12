@@ -1,9 +1,10 @@
 {
   "name": "@ultimaserve/extended-console",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A customizable drop-in replacement for the global `console` object",
   "main": "index.js",
   "type": "module",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

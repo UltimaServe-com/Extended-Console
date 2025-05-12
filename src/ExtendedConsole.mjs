@@ -124,7 +124,7 @@ class ExtendedConsole {
             return this._originalConsole.log(...(prefix ? [prefix, ...finalArgs] : finalArgs));
           };
         } else {
-           this._originalConsole.warn(`[ExtendedConsole] Custom method '${methodName}' is not a function and will be ignored.`);
+          this._originalConsole.warn(`[ExtendedConsole] Custom method '${methodName}' is not a function and will be ignored.`);
         }
       }
     }
@@ -293,9 +293,11 @@ class ExtendedConsole {
     // Combine built-in and custom method names
     const allMethodNamesToOverride = [...new Set([...builtInMethods, ...this._customMethodNames])];
 
+    const extendedConsole = Object.create(this._originalConsole); // Clone from original, not possibly-already-overridden global
+
     for (const method of allMethodNamesToOverride) {
       if (typeof this[method] === 'function') { // Ensure method exists on instance
-        console[method] = this[method].bind(this);
+        extendedConsole[method] = this[method].bind(this);
       } else {
         // This case should ideally not be hit if constructor and _initPrefix are correct
         this._originalConsole.warn(`[ExtendedConsole] Method '${method}' not found on instance during override.`);
@@ -303,9 +305,9 @@ class ExtendedConsole {
     }
 
     // Special proxy methods
-    console.dev = () => this.dev();
+    extendedConsole.dev = () => this.dev();
 
-    console.noPrefix = () => {
+    extendedConsole.noPrefix = () => {
       return new Proxy(this, {
         get: (target, prop) => {
           if (typeof target[prop] === 'function') {
@@ -321,7 +323,11 @@ class ExtendedConsole {
         },
       });
     };
+    
+    // Replace global console
+    globalThis.console = extendedConsole;
   }
+
 }
 
 export default ExtendedConsole;
