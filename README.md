@@ -325,3 +325,56 @@ In this example, `MyProjectLogger` provides a ready-to-use console setup tailore
 Users of `MyProjectLogger` get these specialized methods and prefixes out of the box but can still override them if needed.  
 Remember, after instantiating your derived logger, you still need to call `await instance.init()` to apply its settings to the global `console` object.
 
+**Pro Tip:**  
+If don't want to accept any extra configs on usage, just directly initializ extended console inside of `MyProjectLogger.js`:
+
+```js
+// MyProjectLogger.js
+import ExtendedConsole from '@ultimaserve/extended-console';
+
+class MyProjectLogger extends ExtendedConsole {
+    constructor() {
+        const defaultConfig = {
+            useIconPack: false,
+            defaultPrefix: 'APP:',
+            prefix: {
+            log: '📝',
+            success: '✅',
+            error: '🔥',
+            network: '🌐',
+            security: '🔒'
+            },
+            customMethods: {
+            network: (url, status) => `Request to ${url} - Status: ${status}`,
+            security: (level, message) => `[${level.toUpperCase()}] ${message}`
+            },
+            devMode: process.env.NODE_ENV === 'development',
+        };
+        super(defaultConfig);
+    }
+
+    async init() {
+        await super.init();
+        // Any additional setup for your project logger
+    }
+}
+
+// Initial directly
+await new ExtendedLogger().init();
+```
+
+so we just need to import `MyProjectLogger.js` to use it in our app:
+
+```js
+import './MyProjectLogger.js';
+
+async function main() {
+    console.log('Standard log with project prefix.');
+    console.success('Something great happened!');
+    console.network('/api/users', 200);
+    console.security('info', 'User session initiated.');
+    console.dev().security('debug', 'Checking permissions...');
+}
+
+main();
+```
