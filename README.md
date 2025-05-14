@@ -10,7 +10,7 @@ Once initialized, it seamlessly augments the global `console` object, meaning al
 
 - ✅ **Enhanced Clarity:** Customizable emoji or icon-based prefixes for `log`, `warn`, `error`, `success`, etc.
 - 🎨 **Custom Methods:** Easily define your own logging methods (e.g., `console.audit()`, `console.dbQuery()`) with custom prefixes.
-- 🧩 **Icon Packs:** Support for external emoji icon packs like [emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git).
+- 🧩 ~~~**Icon Packs:** Support for external emoji icon packs like [emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git).~~~
 - 🧪 **Dev-Only Logging:** use `console.dev()` method for logs that only should appear in developer mode.
 - 🚫 **Prefix Control:** Temporarily disable prefixes for specific calls with console.noPrefix().log(...).
 - 🔌 **Highly Configurable:** Fine-tune every aspect, from global prefix usage to individual method prefixes.
@@ -24,7 +24,7 @@ Once initialized, it seamlessly augments the global `console` object, meaning al
 npm install https://github.com/UltimaServe-com/Extended-Console.git
 ```
 
-If you plan to use the optional emoji icon pack (optional):
+If you plan to use the optional emoji icon pack (**DEPRICATED**):
 
 ```bash
 npm install https://github.com/UltimaServe-com/emoji-icons.git
@@ -50,17 +50,19 @@ await consoleEx.init();
 
 ## ⚙️ Configuration Options
 
-| Option               | Type      | Default                                      | Description |
-|----------------------|-----------|----------------------------------------------|-------------|
-| `usePrefix`          | `boolean` | `true`                                       | Enable or disable prefix globally |
-| `useDefaultPrefixes` | `boolean` | `true`                                       | Use built-in emoji defaults when no icon pack or override is provided |
-| `defaultPrefix`      | `string`  | `""`                                         | Fallback prefix string if none is found |
-| `prefix`             | `object`  | `{}`                                         | Override specific method prefixes (e.g. `{ log: '🛠️' }`) |
-| `useIconPack`        | `boolean` | `false`                                      | Enable support for [emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git) |
-| `devMode`            | `boolean` | `process.env.NODE_ENV === 'development'`     | Controls if `console.dev()` is active |
-| `customMethods`      | `object`  | `{}`                                         | Define custom logging methods. Keys are method names, values are functions. E.g., `{ db: (query) => query }`. |
+| Option                     | Type      | Default                                      | Description |
+|----------------------------|-----------|----------------------------------------------|-------------|
+| `usePrefix`                | `boolean` | `true`                                       | Enable or disable prefix globally |
+| `useDefaultPrefixes`       | `boolean` | `true`                                       | Use built-in emoji defaults when no icon pack or override is provided |
+| `defaultPrefix`            | `string`  | `""`                                         | Fallback prefix string if none is found |
+| `prefix`                   | `object`  | `{}`                                         | Override specific method prefixes (e.g. `{ log: '🛠️' }`) |
+| `useIconPack` (deprecated) | `boolean` | `false`                                | Enable support for [emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git) |
+| `devMode`                  | `boolean` | `process.env.NODE_ENV === 'development'`     | Controls if `console.dev()` is active |
+| `customMethods`            | `object`  | `{}`                                         | Define custom logging methods. Keys are method names, values are functions. E.g., `{ db: (query) => query }`. |
 
 > **Note:** All configuration parameters are optional and have sensible defaults.
+
+> `useIconPack` is deprecated. you can use `prefix` to define your own icons.
 
 ---
 
@@ -102,7 +104,7 @@ console.log('This is a log message');
 
 ---
 
-## 🎨 Icon Pack Mapping ([emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git))
+## 🎨 ~~~Icon Pack Mapping ([emoji-icons](https://github.com/UltimaServe-com/emoji-icons.git))~~~
 
 If `useIconPack: true` and the icon pack is installed, `Extended-Console` attempts to use these mappings.  
 These can be individually overridden via the `prefix` option.
@@ -119,6 +121,7 @@ These can be individually overridden via the `prefix` option.
 | `connect`   | `connect`                   |
 | `disconnect`| `disconnect`                |
 
+> **Note:** The icon pack depricated and not supported anymore in version `^1.0.2` and above. you can use the `prefix` option to define your own icons.
 
 ---
 
@@ -270,7 +273,6 @@ import ExtendedConsole from '@ultimaserve/extended-console'; // or your publishe
 class MyProjectLogger extends ExtendedConsole {
     constructor(configOverrides = {}) {
         const defaultConfig = {
-            useIconPack: false, // Maybe your project doesn't use it
             defaultPrefix: 'APP:',
             prefix: {
             log: '📝',

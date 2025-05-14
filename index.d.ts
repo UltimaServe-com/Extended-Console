@@ -11,7 +11,6 @@ export interface CustomMethodMap {
 export interface ExtendedConsoleOptions {
     usePrefix?: boolean;               // Enable or disable prefixes (default: true)
     useDefaultPrefixes?: boolean;      // Use default emoji prefixes (default: true)
-    useIconPack?: boolean;             // Load external emoji icon pack (default: false)
     prefix?: ConsolePrefixMap;         // Custom method-to-prefix mapping
     customMethods?: CustomMethodMap;   // Define custom log methods
     devMode?: boolean;                 // Define is running on developer mode or not (default: process.env.NODE_ENV === 'development')

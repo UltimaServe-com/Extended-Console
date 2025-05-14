@@ -1,6 +1,6 @@
 {
   "name": "@ultimaserve/extended-console",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A customizable drop-in replacement for the global `console` object",
   "main": "index.js",
   "type": "module",
@@ -18,8 +18,5 @@
     "custom-console"
   ],
   "author": "Elkbee",
-  "license": "MIT",
-  "peerDependency": {
-    "@ultimaserve/emoji-icons": "^1.0.1"
-  }
+  "license": "MIT"
 }

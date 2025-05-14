@@ -1,15 +1,3 @@
-const ICON_PACK_MAP = {
-  log: 'pin',
-  success: 'check_green',
-  warn: 'warn',
-  error: 'fail',
-  info: 'info',
-  check: 'success',
-  skip: 'skip',
-  connect: 'connect',
-  disconnect: 'disconnect',
-};
-
 const DEFAULT_PREFIXES = {
   log: '>',
   success: '\x1b[32m✔\x1b[0m', // Green check mark
@@ -36,7 +24,6 @@ const DEFAULT_PREFIXES = {
  * @param {boolean} [config.useDefaultPrefixes=true]            - Enable or disable built-in emoji defaults (fallback if icon pack not used).
  * @param {string}  [config.defaultPrefix=""]                   - A fallback prefix string for methods that don't have a defined prefix.
  * @param {Object}  [config.prefix={}]                          - Override prefixes per method (e.g., { success: '💡', customLog: '🚀' }).
- * @param {boolean} [config.useIconPack=false]                  - Whether to try loading an external emoji icon pack (`@ultimaserve/emoji-icons`).
  * @param {boolean} [config.devMode=process.env.NODE_ENV === 'development'] - Enable dev mode logging (affects `console.dev()` behavior).
  * @param {Object.<string, Function>} [config.customMethods={}] - Define custom logging methods (e.g., { customLog: (...args) => console.log('My special log:', ...args) }).
  * These methods will use `_originalConsole.log` by default.
@@ -59,7 +46,6 @@ const DEFAULT_PREFIXES = {
  * ```js
  * import ExtendedConsole from './ExtendedConsole.js';
  * const consoleEx = new ExtendedConsole({
- * useIconPack: true,
  * prefix: { // User-defined prefixes
  * customLog: '🌟',
  * anotherCustom: '➡️'
@@ -164,16 +150,6 @@ class ExtendedConsole {
       return;
     }
 
-    let iconPack = null;
-    if (config.useIconPack) {
-      try {
-        const imported = await import('@ultimaserve/emoji-icons');
-        iconPack = imported.default || imported;
-      } catch (e) { // Catch specific error
-        this._originalConsole.warn('[ExtendedConsole] Could not load @ultimaserve/emoji-icons. Skipping icon pack.', e.message);
-      }
-    }
-
     for (const method of allMethodNames) {
       let prefixValue = ''; // Start with an empty prefix
 
@@ -181,15 +157,11 @@ class ExtendedConsole {
       if (userPrefix.hasOwnProperty(method)) {
         prefixValue = userPrefix[method];
       }
-      // 2. Else, check icon pack if enabled and mapping exists
-      else if (iconPack && ICON_PACK_MAP[method] && iconPack[ICON_PACK_MAP[method]]) {
-        prefixValue = iconPack[ICON_PACK_MAP[method]];
-      }
-      // 3. Else, check built-in defaults if enabled and available
+      // 2. Else, check built-in defaults if enabled and available
       else if (this.useDefaultPrefixes && DEFAULT_PREFIXES[method]) {
         prefixValue = DEFAULT_PREFIXES[method];
       }
-      // 4. Else, use the global defaultPrefixString (which could be empty)
+      // 3. Else, use the global defaultPrefixString (which could be empty)
       else {
         prefixValue = this.defaultPrefixString;
       }
@@ -323,7 +295,7 @@ class ExtendedConsole {
         },
       });
     };
-    
+
     // Replace global console
     globalThis.console = extendedConsole;
   }
